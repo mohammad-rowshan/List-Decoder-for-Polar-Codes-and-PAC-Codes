@@ -6,6 +6,9 @@ M. Rowshan, A. Burg and E. Viterbo, "Polarization-Adjusted Convolutional (PAC) C
 https://ieeexplore.ieee.org/abstract/document/9328621
 
 Description: 
-A successive cancellation list (SCL) decoding algorithm for polar codes and PAC codes with various code constructions/rate profiles. 
+This is an implementation of the successive cancellation list (SCL) decoding algorithm for polar codes and PAC codes with the choice of various code constructions/rate profiles. 
 The list decoding algorithm is an adaptive two stage successive cancellation list (SCL) algorithm. That means first it tries L=1 and then L=L_max. The performance is the same as list decoding with L_max. This trick has been implemented in the simulator.py file. The rest of the files are the same as the standard list decoding algorithm.
+
+To switch between decoding polar codes and PAC codes, you need to change the generator polynomial conv_gen to conv_gen=[1] for polar codes or any other polynomial such as conv_gen=[1,0,1,1,0,1,1].
+
 Note that the "copy on write" or "lazy copy" technique has been used in this algorithm.
