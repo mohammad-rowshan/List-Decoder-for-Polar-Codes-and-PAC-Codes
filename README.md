@@ -1,4 +1,4 @@
-# List Decoder for Polar Codes and PAC Codes
+# List Decoder for Polar Codes,CRC-Polar Codes, and PAC Codes
 If you find this algorithm useful, please cite the following paper. Thanks.
 
 M. Rowshan, A. Burg and E. Viterbo, "Polarization-Adjusted Convolutional (PAC) Codes: Sequential Decoding vs List Decoding," in IEEE Transactions on Vehicular Technology, vol. 70, no. 2, pp. 1434-1447, Feb. 2021, doi: 10.1109/TVT.2021.3052550.
