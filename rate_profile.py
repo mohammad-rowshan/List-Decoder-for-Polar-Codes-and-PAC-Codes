@@ -1,19 +1,14 @@
-# Code Construction Class #########################################################
+# Code Construction Class #############################################################
 #
 # Copyright (c) 2021, Mohammad Rowshan
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, 
-# are permitted provided that the following conditions are met:
-#
-# 1. Redistributions of source code must retain the above copyright notice, 
-#   this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright notice,
-#   this list of conditions and the following disclaimer in the documentation
-#   and/or other materials provided with the distribution.
-#
+# are permitted provided that:
+# the source code retains the above copyright notice, and te redistribtuion condition.
+# 
 # Freely distributed for educational and research purposes
-###################################################################################
+#######################################################################################
 
 from operator import itemgetter
 #itemgetter(item) return a callable object that fetches item from its operand using the operandâ€™s __getitem__() method. If multiple items are specified, returns a tuple of lookup values
