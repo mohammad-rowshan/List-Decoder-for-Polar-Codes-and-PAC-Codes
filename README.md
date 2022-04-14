@@ -12,3 +12,5 @@ The list decoding algorithm is an adaptive two stage successive cancellation lis
 To switch between decoding polar codes and PAC codes, you need to change the generator polynomial conv_gen to conv_gen=[1] for polar codes or any other polynomial such as conv_gen=[1,0,1,1,0,1,1].
 
 Note that the "copy on write" or "lazy copy" technique has been used in this algorithm.
+
+Please report any bugs to mrowshan@ieee.org
