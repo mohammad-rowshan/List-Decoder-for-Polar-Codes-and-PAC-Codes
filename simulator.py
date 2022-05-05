@@ -20,30 +20,32 @@ from crclib import crc
 import csv
 
 N = 2**6
-R = 0.5 #0.6875
-crc_len = 0 # Use 8,12,16 along with the corresponding crc_poly  # Use 0 for no CRC
-crc_poly = 0xA5 # 0x1021 for crc_len=16  # 0xC06  for crc_len=12 # 0xA6  for crc_len=8
-list_size = 2**0 # Keep this as it is. Change list_size_max for your desired L.
-list_size_max = 2**5  # For adaptive two-stage list decoding to accelerate the decoding process: first with L=list_size. If the deocing fails, then with L=list_size_max
-designSNR = 2 #128:3.5/4 #512:2
-profile_name = "dega" # Use "rm-polar" for Read-Muller polar code construction, #"pw" for polarization weight construction, "bh"  for Bhattachariya parameter construction.
+R = 0.5
+crc_len = 0             # Use 8,12,16 along with the corresponding crc_poly below  # Use 0 for no CRC. # It does not support 6, 9, 11, 24, etc.
+crc_poly = 0xA5         # 0x1021 for crc_len=16  # 0xC06  for crc_len=12 # 0xA6  for crc_len=8
+list_size = 2**0        # Keep this as it is. Change list_size_max for your desired L.
+list_size_max = 2**5    # For adaptive two-stage list decoding to accelerate the decoding process: first with L=list_size. If the deocing fails, then with L=list_size_max
+designSNR = 2           # For instance for P(128,64):4, P(512,256):2
+profile_name = "dega"   # Use "rm-polar" for Read-Muller polar code construction, #"pw" for polarization weight construction, "bh"  for Bhattachariya parameter/bound construction.
 
 # For polar coding, set conv_gen = [1] which makes v=u meaninng no precoding.
-conv_gen = [1,0,1,1,0,1,1] # Use [1] for polar codes 
+conv_gen = [1,0,1,1,0,1,1]      # Use [1] for polar codes 
 
-snrb_snr = 'SNRb'   # 'SNRb':Eb/N0 or 'SNR':Es/N0
-modu = 'BPSK'       # QPSK or BPSK
+snrb_snr = 'SNRb'       # 'SNRb':Eb/N0 or 'SNR':Es/N0
+modu = 'BPSK'           # It does not work for higher modulations
 
-snr_range = np.arange(3,6,0.5) #arange(start,endpoint+step,step)
-err_cnt = 100
+snr_range = np.arange(3,6,0.5) # in dB, (start,endpoint+step,step)
+err_cnt = 50            # The number of error counts for each SNR point, for convergence, choose larger counts for low SNR regimes and for short codes.
+
+systematic = False
 
 # Error Coefficient-reduced: For code modifcation by X number of rows in G_N
 # The maximum number of row modifications, you can choose 2 as well. If you increase it, the error coefficient might get betetr but the BLER may not. 
 # See https://arxiv.org/abs/2111.08843
-max_row_swaps  = 0  # 0 for no construction midifcation # 2 and 3 is recommended. 
+max_row_swaps  = 0      # 0 for no construction midifcation # 2 and 3 is recommended. 
 
 
-#crc_len = len(bin(crc_poly)[2:].zfill(len(bin(crc_poly)[2:])//4*4+(len(bin(crc_poly)[2:])%4>0)*4)) #0 for non-CRC
+#crc_len = len(bin(crc_poly)[2:].zfill(len(bin(crc_poly)[2:])//4*4+(len(bin(crc_poly)[2:])%4>0)*4))
 K = int(N*R)
 nonfrozen_bits = K + crc_len
 mem = len(conv_gen)-1
@@ -52,7 +54,7 @@ rprofile = rateprofile(N,nonfrozen_bits,designSNR,max_row_swaps)
 
 crc1 = crc(int(crc_len), crc_poly)
 pcode = PolarCode(N, nonfrozen_bits, profile_name, L=list_size, rprofile=rprofile)
-pcode.iterations = 10**7
+pcode.iterations = 10**7    # Maximum number of iterations if the errors found is less than err_cnt
 pcode.list_size_max = list_size_max
 
 print("PAC({0},{1}) constructed by {3}({4}dB)".format(N, nonfrozen_bits,crc_len,profile_name,designSNR))
@@ -60,8 +62,6 @@ print("L={} & c={}".format(list_size,conv_gen))
 print("BER & FER evaluation is started")
 
 st = time()
-
-systematic = False
 isCRCinc = True if crc_len>0 else False
 
 
