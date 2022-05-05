@@ -147,8 +147,8 @@ if isCRCinc:
 #Writing the resuls in file
 with open(result.fname + ".csv", 'w') as f:
     result.label = "PAC({0}, {1})\nL={2}\nRate-profile={3}\ndesign SNR={4}\n" \
-                "Conv Poly={5}\nCRC={6} bits\n".format(N, pcode.nonfrozen_bits,
-                pcode.list_size, profile_name, designSNR, conv_gen, crc_len)
+                "Conv Poly={5}\nCRC={6} bits, Systematic={7}\n".format(N, pcode.nonfrozen_bits,
+                pcode.list_size, profile_name, designSNR, conv_gen, crc_len, systematic)
     f.write(result.label)
 
     f.write("\nSNR: ")
