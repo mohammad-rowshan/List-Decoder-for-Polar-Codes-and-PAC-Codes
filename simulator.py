@@ -95,7 +95,7 @@ for snr in snr_range:
         if isCRCinc:
             message = np.append(message, crc1.crcCalc(message))
 
-        x = pcode.pac_encode(message, conv_gen, mem)
+        x = pcode.pac_encode(message, conv_gen, mem, systematic)
         
         modulated_x = ch.modulate(x)
         y = ch.add_noise(modulated_x)
