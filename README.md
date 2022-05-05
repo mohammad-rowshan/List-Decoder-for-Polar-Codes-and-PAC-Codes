@@ -13,4 +13,4 @@ To switch between decoding polar codes and PAC codes, you need to change the gen
 
 Note that the "copy on write" or "lazy copy" technique has been used in this algorithm.
 
-Please report any bugs to mrowshan@ieee.org
+Please report any bugs to mrowshan at ieee dot org
