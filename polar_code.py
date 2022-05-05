@@ -197,12 +197,15 @@ class PolarCode:
 
 
 
-    def pac_encode(self, info, conv_gen, mem):
+    def pac_encode(self, info, conv_gen, mem, issystematic):
         """Encoding function"""
         # Non-systematic encoding
         V = self.profiling(info)
         U = pcfun.conv_encode(V, conv_gen, mem)
         X = self.mul_matrix(U)
+        if issystematic:
+            X *= self.polarcode_mask
+            X = self.mul_matrix(X)
         return X
 
 
